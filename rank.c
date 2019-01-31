@@ -15,7 +15,9 @@ int main (void)
     char *string;
 
     while (!eof_flag)
+    {
         printf ("%s ", read_words());
+    }
 
     fclose (sample);
 
@@ -25,10 +27,11 @@ int main (void)
 char * read_words(void)
 {
     int     ch;
+    char    temp;
     char    *word, *word_temp;
     bool    in_word = false;
 
-    word_temp = word;
+    word_temp = word = &temp;
     while ((ch = getc(sample)) != EOF)
     {
         if (isalpha(ch))
