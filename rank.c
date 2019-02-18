@@ -8,7 +8,7 @@ bool eof_flag = false;
 /* prototypes */
 void open_file();
 long int count_char(FILE *);
-char * read_words(void);
+/* char * read_words(void); */
 
 int main (void)
 {
@@ -28,7 +28,7 @@ void open_file()
 
 long int count_char(FILE *f)
 {
-    long count;
+    long count = 0;
 
     while (getc(f) != EOF)
     {
