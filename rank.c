@@ -8,6 +8,8 @@ bool eof_flag = false;
 /* prototypes */
 void open_file();
 long int count_char(FILE *);
+void read_file(FILE *, char *data);
+void print_data(char const *data);        // for tests
 /* char * read_words(void); */
 
 int main (void)
@@ -21,7 +23,16 @@ void open_file()
 {
     sample = fopen ("sample.txt", "r");
 
-    printf ("%ld\n", count_char(sample));
+    long c = count_char(sample);
+    char data[c + 1];
+
+    printf ("%ld\n", c);
+
+    fclose (sample);
+    sample = fopen ("sample.txt", "r");
+
+    read_file(sample, data);
+    print_data(data);
 
     fclose (sample);
 }
@@ -31,11 +42,27 @@ long int count_char(FILE *f)
     long count = 0;
 
     while (getc(f) != EOF)
-    {
         ++count;
-    }
 
     return count;
+}
+
+void read_file(FILE *f, char *data)
+{
+    int ch;
+    
+    while ((ch = getc(f)) != EOF)
+        *data++ = ch;
+
+    *data = '\0';
+}
+
+void print_data(char const *data)
+{
+    while (*data != '\0')
+        printf ("%c", *data++);
+
+    printf ("\n");
 }
 
 /* char * read_words(void) */
