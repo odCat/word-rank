@@ -10,7 +10,7 @@ void open_file();
 long int count_char(FILE *);
 void read_file(FILE *, char *data);
 void print_data(char const *data);        // for tests
-/* char * read_words(void); */
+int count_words(char *data);
 
 int main (void)
 {
@@ -32,7 +32,8 @@ void open_file()
     sample = fopen ("sample.txt", "r");
 
     read_file(sample, data);
-    print_data(data);
+    printf ("Words: %d\n", count_words(data));
+    /* print_data(data); */
 
     fclose (sample);
 }
@@ -65,27 +66,24 @@ void print_data(char const *data)
     printf ("\n");
 }
 
-/* char * read_words(void) */
-/* { */
-/*     int     ch; */
-/*     char    temp; */
-/*     char    *word, *word_temp; */
-/*     bool    in_word = false; */
+int count_words(char *data)
+{
+    _Bool in_word = false;
+    int count = 0;
 
-/*     word_temp = word = &temp; */
-/*     while ((ch = getc(sample)) != EOF) */
-/*     { */
-/*         if (isalpha(ch)) */
-/*         { */
-/*             if (!in_word) */
-/*                 in_word = true; */
-/*             *word_temp = ch; */
-/*             word_temp++; */
-/*         } else */
-/*             in_word = false; */
-/*     } */
-/*     *word_temp = '\0'; */
-/*     eof_flag = true; */
+    while (*data != '\0')
+    {
+        if (!isspace(*data) && !in_word)
+        {
+            in_word = true;
+            ++count;
+        }
 
-/*     return word; */
-/* } */
+        if (isspace(*data) && in_word)
+            in_word = false;
+
+        ++data;
+    }
+
+    return count;
+}
