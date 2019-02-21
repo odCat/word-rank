@@ -41,9 +41,11 @@ void open_file()
 long int count_char(FILE *f)
 {
     long count = 0;
+    int  ch;
 
-    while (getc(f) != EOF)
-        ++count;
+    while ((ch = getc(f)) != EOF)
+        if (ch != '.' && ch != ',' && ch != ':')
+            ++count;
 
     return count;
 }
@@ -53,7 +55,8 @@ void read_file(FILE *f, char *data)
     int ch;
     
     while ((ch = getc(f)) != EOF)
-        *data++ = ch;
+        if (ch != '.' && ch != ',' && ch != ':')
+            *data++ = ch;
 
     *data = '\0';
 }
