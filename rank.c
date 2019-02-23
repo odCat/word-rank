@@ -5,6 +5,12 @@
 FILE * sample;
 bool eof_flag = false;
 
+struct word
+{
+    char *          str;
+    unsigned short  rank;
+};
+
 /* prototypes */
 void open_file();
 long int count_char(FILE *);
