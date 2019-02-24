@@ -4,6 +4,7 @@
 
 FILE * sample;
 bool eof_flag = false;
+unsigned short int max_length;
 
 struct word
 {
