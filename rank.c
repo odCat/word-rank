@@ -6,11 +6,6 @@ FILE * sample;
 bool eof_flag = false;
 unsigned short int max_length;
 
-struct word
-{
-    char *          str;
-    unsigned short  rank;
-};
 
 /* prototypes */
 void open_file();
@@ -33,14 +28,21 @@ void open_file()
     long c = count_char(sample);
     char data[c + 1];
 
-    printf ("%ld\n", c);
+    printf ("Characters: %ld\n", c);
 
     fclose (sample);
     sample = fopen ("sample.txt", "r");
 
     read_file(sample, data);
-    printf ("Words: %d\n", count_words(data));
+    printf ("Words:      %d\n", count_words(data));
+    printf ("Max length: %d\n", max_length);
     /* print_data(data); */
+
+    struct word
+    {
+        char            str[max_length];
+        unsigned short  rank;
+    };
 
     fclose (sample);
 }
@@ -79,21 +81,29 @@ void print_data(char const *data)
 int count_words(char *data)
 {
     _Bool in_word = false;
-    int count = 0;
+    unsigned short int length;
+    int wcount = 0;
 
     while (*data != '\0')
     {
-        if (!isspace(*data) && !in_word)
-        {
-            in_word = true;
-            ++count;
-        }
+        if (!isspace(*data))
+            if (!in_word)
+            {
+                length = 0;
+                in_word = true;
+                ++wcount;
+            } else
+                ++length;
 
         if (isspace(*data) && in_word)
+        {
             in_word = false;
+            if (length > max_length)
+                max_length  = length;
+        }
 
         ++data;
     }
 
-    return count;
+    return wcount;
 }
