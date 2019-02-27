@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <stdlib.h>
 #include <stdbool.h>
 
 FILE * sample;
@@ -126,8 +127,9 @@ void make_ranking(char * data)
         unsigned short  rank;
     };
 
-    struct word list_head;
-    struct word *list_current = &list_head;
+    struct word *list_head = (struct word *)
+        calloc ( count_words(data), sizeof(struct word));
+    struct word *list_current = list_head;
 
     get_next_word(data);
     /* while (*data = "\0") */
