@@ -2,6 +2,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 FILE * sample;
 bool eof_flag = false;
@@ -14,7 +15,7 @@ long int count_char(FILE *);
 void read_file(FILE *, char *data);
 void print_data(char const *data);        // for tests
 int count_words(char *data);
-void make_ranking(char * data);
+int make_ranking(char *data);
 char * get_next_word(char *data);
 
 int main (void)
@@ -117,7 +118,7 @@ int count_words(char *data)
     return wcount;
 }
 
-void make_ranking(char * data)
+int make_ranking(char * data)
 {
     printf ("Log: make_ranking\n");
 
@@ -126,13 +127,28 @@ void make_ranking(char * data)
         char            str[max_length];
         unsigned short  rank;
     };
+    char * next_word;
+    int is_ranked(char * word);
 
-    struct word *list_head = (struct word *)
-        calloc ( count_words(data), sizeof(struct word));
-    struct word *list_current = list_head;
+    struct word *list_head;
 
-    get_next_word(data);
-    /* while (*data = "\0") */
+    while (*data != '\0')
+    {
+        struct word *temp = (struct word *)
+            calloc (1, sizeof(struct word));
+        if (temp == NULL)
+            return 1;
+        next_word = get_next_word(data);
+        if (1)
+            strcpy (temp->str, next_word);
+        printf ("%s\n", temp->str);
+        free(temp);
+        break;
+
+    }
+
+    /* get_next_word(data); */
+    return 0;
 }
 
 char * get_next_word(char * data)
@@ -149,3 +165,12 @@ char * get_next_word(char * data)
 
     return next_word;
 }
+
+/* int is_ranked(char * word) */
+/* { */
+
+/*     if (strcmp(list_head->str, "Comunicat")) */
+/*         return 0; */
+/*     else */
+/*         return 1; */
+/* } */
