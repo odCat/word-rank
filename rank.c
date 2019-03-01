@@ -126,11 +126,13 @@ int make_ranking(char * data)
     {
         char            str[max_length];
         unsigned short  rank;
+        struct word *next;
     };
     char * next_word;
     int is_ranked(char * word);
 
-    struct word *list_head;
+    struct word *list_head;// = (struct word *)
+        //calloc (1, sizeof(struct word));
 
     while (*data != '\0')
     {
@@ -138,11 +140,35 @@ int make_ranking(char * data)
             calloc (1, sizeof(struct word));
         if (temp == NULL)
             return 1;
+
+        
         next_word = get_next_word(data);
+
         if (1)
             strcpy (temp->str, next_word);
-        printf ("%s\n", temp->str);
-        free(temp);
+
+        list_head = temp;
+
+        printf ("%s\n", list_head->str);
+
+        if (list_head->next == NULL)
+            printf ("Null pointer\n");
+
+        while (list_head != (struct word *) 0)
+        {
+            temp = list_head;
+            while (temp->next != (struct word *) 0)
+                temp = temp->next;
+            printf ("Free a word\n");
+            free(list_head);
+            list_head = NULL;
+            if (list_head == NULL)
+            {
+                printf ("Null head\n");
+                break;
+            }
+        }
+
         break;
 
     }
