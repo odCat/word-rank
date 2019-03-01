@@ -131,23 +131,24 @@ int make_ranking(char * data)
     char * next_word;
     int is_ranked(char * word);
 
-    struct word *list_head;// = (struct word *)
-        //calloc (1, sizeof(struct word));
+    struct word *list_head = (struct word *) 0;
 
     while (*data != '\0')
     {
         struct word *temp = (struct word *)
             calloc (1, sizeof(struct word));
-        if (temp == NULL)
-            return 1;
-
+        if (temp == (struct word *) 0)
+        {
+            fprintf (stderr, "calloc: allocation failed\n");
+            exit(1);
+        }
+        if (list_head == (struct word *) 0)
+            list_head = temp;
         
         next_word = get_next_word(data);
 
         if (1)
             strcpy (temp->str, next_word);
-
-        list_head = temp;
 
         printf ("%s\n", list_head->str);
 
@@ -173,7 +174,6 @@ int make_ranking(char * data)
 
     }
 
-    /* get_next_word(data); */
     return 0;
 }
 
