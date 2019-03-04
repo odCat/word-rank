@@ -18,7 +18,7 @@ int count_words(char *data);
 int make_ranking(char *data);
 char * get_next_word(char *data);
 
-int main (void)
+int main (int argc, char *argv[])
 {
     open_file();
 
@@ -147,6 +147,7 @@ int make_ranking(char * data)
         
         next_word = get_next_word(data);
 
+        // Check if the word is new
         if (1)
             strcpy (temp->str, next_word);
 
@@ -155,6 +156,7 @@ int make_ranking(char * data)
         if (list_head->next == NULL)
             printf ("Null pointer\n");
 
+        /* Delete list rankeings */
         while (list_head != (struct word *) 0)
         {
             temp = list_head;
