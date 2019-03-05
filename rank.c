@@ -32,14 +32,18 @@ void open_file()
     long c = count_char(sample);
     char data[c + 1];
 
+#ifdef DEBUG
     printf ("Characters: %ld\n", c);
+#endif
 
     fclose (sample);
     sample = fopen ("sample.txt", "r");
 
     read_file(sample, data);
+#ifdef DEBUG
     printf ("Words:      %d\n", count_words(data));
     printf ("Max length: %d\n", max_length);
+#endif
     /* print_data(data); */
 
     /* struct word */
@@ -120,7 +124,9 @@ int count_words(char *data)
 
 int make_ranking(char * data)
 {
+#ifdef DEBUG
     printf ("Log: make_ranking\n");
+#endif
 
     struct word
     {
@@ -151,10 +157,12 @@ int make_ranking(char * data)
         if (1)
             strcpy (temp->str, next_word);
 
+#ifdef DEBUG
         printf ("%s\n", list_head->str);
 
         if (list_head->next == NULL)
             printf ("Null pointer\n");
+#endif
 
         /* Delete list rankeings */
         while (list_head != (struct word *) 0)
@@ -162,12 +170,16 @@ int make_ranking(char * data)
             temp = list_head;
             while (temp->next != (struct word *) 0)
                 temp = temp->next;
+#ifdef DEBUG
             printf ("Free a word\n");
+#endif
             free(list_head);
             list_head = NULL;
             if (list_head == NULL)
             {
+#ifdef DEBUG
                 printf ("Null head\n");
+#endif
                 break;
             }
         }
@@ -189,7 +201,9 @@ char * get_next_word(char * data)
 
     next_word[count] = '\0';
 
+#ifdef DEBUG
     printf ("%s\n", next_word);
+#endif
 
     return next_word;
 }
