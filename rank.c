@@ -32,28 +32,17 @@ void open_file()
     long c = count_char(sample);
     char data[c + 1];
 
-#ifdef DEBUG
-    printf ("Characters: %ld\n", c);
-#endif
-
     fclose (sample);
     sample = fopen ("sample.txt", "r");
 
     read_file(sample, data);
+
 #ifdef DEBUG
+    printf ("Characters: %ld\n", c);
     printf ("Words:      %d\n", count_words(data));
     printf ("Max length: %d\n", max_length);
-#endif
     /* print_data(data); */
-
-    /* struct word */
-    /* { */
-    /*     char            str[183]; */
-    /*     unsigned short  rank; */
-    /* }; */
-
-
-    /* char words[c][200]; */
+#endif
 
     if (count_words(data) > 0)
         make_ranking(data);
@@ -207,12 +196,3 @@ char * get_next_word(char * data)
 
     return next_word;
 }
-
-/* int is_ranked(char * word) */
-/* { */
-
-/*     if (strcmp(list_head->str, "Comunicat")) */
-/*         return 0; */
-/*     else */
-/*         return 1; */
-/* } */
