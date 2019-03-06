@@ -6,7 +6,7 @@
 
 FILE * sample;
 bool eof_flag = false;
-unsigned short int max_length;
+unsigned short int max_length = 0;
 
 
 /* prototypes */
@@ -41,7 +41,7 @@ void open_file()
     printf ("Characters: %ld\n", c);
     printf ("Words:      %d\n", count_words(data));
     printf ("Max length: %d\n", max_length);
-    /* print_data(data); */
+    print_data(data);
 #endif
 
     if (count_words(data) > 0)
@@ -75,6 +75,8 @@ void read_file(FILE *f, char *data)
 
 void print_data(char const *data)
 {
+    printf ("\ndata: \n");
+
     while (*data != '\0')
         printf ("%c", *data++);
 
@@ -92,7 +94,7 @@ int count_words(char *data)
         if (!isspace(*data))
             if (!in_word)
             {
-                length = 0;
+                length = 1;
                 in_word = true;
                 ++wcount;
             } else
@@ -102,7 +104,13 @@ int count_words(char *data)
         {
             in_word = false;
             if (length > max_length)
-                max_length  = length;
+            {
+#ifdef DEBUG
+                printf ("Length: %i\n", length);
+#endif
+                max_length = length;
+                in_word = false;
+            }
         }
 
         ++data;
