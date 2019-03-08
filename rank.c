@@ -4,6 +4,13 @@
 #include <stdbool.h>
 #include <string.h>
 
+#ifdef DEBUG_ON
+#   define DEBUG(...) fprintf (stderr,  __VA_ARGS__)
+#   define DEBUG_DATA(arg) print_data(arg)
+#else
+#   define DEBUG(str, ...)
+#endif
+
 FILE * sample;
 bool eof_flag = false;
 unsigned short int max_length = 0;
@@ -37,12 +44,10 @@ void open_file()
 
     read_file(sample, data);
 
-#ifdef DEBUG
-    printf ("Characters: %ld\n", c);
-    printf ("Words:      %d\n", count_words(data));
-    printf ("Max length: %d\n", max_length);
-    print_data(data);
-#endif
+    DEBUG ("Characters: %ld\n", c);
+    DEBUG ("Words:      %d\n", count_words(data));
+    DEBUG ("Max length: %d\n", max_length);
+    DEBUG_DATA (data);
 
     if (count_words(data) > 0)
         make_ranking(data);
@@ -105,9 +110,7 @@ int count_words(char *data)
             in_word = false;
             if (length > max_length)
             {
-#ifdef DEBUG
-                printf ("Length: %i\n", length);
-#endif
+                DEBUG ("Length: %i\n", length);
                 max_length = length;
                 in_word = false;
             }
@@ -121,9 +124,7 @@ int count_words(char *data)
 
 int make_ranking(char * data)
 {
-#ifdef DEBUG
-    printf ("Log: make_ranking\n");
-#endif
+    DEBUG ("Log: make_ranking\n");
 
     struct word
     {
@@ -154,12 +155,10 @@ int make_ranking(char * data)
         if (1)
             strcpy (temp->str, next_word);
 
-#ifdef DEBUG
-        printf ("%s\n", list_head->str);
+        DEBUG ("%s\n", list_head->str);
 
         if (list_head->next == NULL)
-            printf ("Null pointer\n");
-#endif
+            DEBUG ("Null pointer\n");
 
         /* Delete list rankeings */
         while (list_head != (struct word *) 0)
@@ -167,16 +166,12 @@ int make_ranking(char * data)
             temp = list_head;
             while (temp->next != (struct word *) 0)
                 temp = temp->next;
-#ifdef DEBUG
-            printf ("Free a word\n");
-#endif
+            DEBUG ("Free a word\n");
             free(list_head);
             list_head = NULL;
             if (list_head == NULL)
             {
-#ifdef DEBUG
-                printf ("Null head\n");
-#endif
+                DEBUG ("Null head\n");
                 break;
             }
         }
@@ -198,9 +193,7 @@ char * get_next_word(char * data)
 
     next_word[count] = '\0';
 
-#ifdef DEBUG
-    printf ("%s\n", next_word);
-#endif
+    DEBUG ("%s\n", next_word);
 
     return next_word;
 }
