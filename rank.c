@@ -138,7 +138,7 @@ int make_ranking(char * data)
     struct word *list_head = (struct word *) 0;
 
     while (*data != '\0')
-    {
+    {)
         struct word *temp = (struct word *)
             calloc (1, sizeof(struct word));
         if (temp == (struct word *) 0)
@@ -152,6 +152,13 @@ int make_ranking(char * data)
         next_word = get_next_word(data);
 
         // Check if the word is new
+        while (temp != (struct word*) 0)
+        {
+            if (new_word == temp->str)
+                ;
+            else
+                ;
+        }
         if (1)
             strcpy (temp->str, next_word);
 
