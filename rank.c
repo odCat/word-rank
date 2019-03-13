@@ -8,7 +8,8 @@
 #   define DEBUG(...) fprintf (stderr,  __VA_ARGS__)
 #   define DEBUG_DATA(arg) print_data(arg)
 #else
-#   define DEBUG(str, ...)
+#   define DEBUG(...)
+#   define DEBUG_DATA(arg)
 #endif
 
 FILE * sample;
@@ -133,12 +134,12 @@ int make_ranking(char * data)
         struct word *next;
     };
     char * next_word;
-    int is_ranked(char * word);
+    /* int is_ranked(char * word); */
 
     struct word *list_head = (struct word *) 0;
 
     while (*data != '\0')
-    {)
+    {
         struct word *temp = (struct word *)
             calloc (1, sizeof(struct word));
         if (temp == (struct word *) 0)
@@ -152,15 +153,32 @@ int make_ranking(char * data)
         next_word = get_next_word(data);
 
         // Check if the word is new
-        while (temp != (struct word*) 0)
-        {
-            if (new_word == temp->str)
-                ;
-            else
-                ;
-        }
-        if (1)
-            strcpy (temp->str, next_word);
+        /* _Bool found = false; */
+        /* do */
+        /* { */
+        /*     if (next_word == temp->str) */
+        /*     { */
+        /*         ++temp->rank; */
+        /*         found = true; */
+        /*         break; */
+        /*     } else */
+        /*         temp = temp->next; */
+        /* } */
+        /* while (temp->next != (struct word*) 0); */
+
+        /* if (!found) */
+        /* { */
+        /*     temp->next = (struct word *) */
+        /*         calloc (1, sizeof(struct word *)); */
+        /*     if (temp->next == (struct word *) 0) */
+        /*     { */
+        /*         fprintf (stderr, "calloc: allocation failed\n"); */
+        /*         exit(1); */
+        /*     } else { */
+        /*         temp = temp->next; */
+        /*         strcpy (temp->str, next_word); */
+        /*     } */
+        /* } */
 
         DEBUG ("%s\n", list_head->str);
 
