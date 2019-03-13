@@ -153,18 +153,20 @@ int make_ranking(char * data)
         next_word = get_next_word(data);
 
         // Check if the word is new
-        /* _Bool found = false; */
-        /* do */
-        /* { */
-        /*     if (next_word == temp->str) */
-        /*     { */
-        /*         ++temp->rank; */
-        /*         found = true; */
-        /*         break; */
-        /*     } else */
-        /*         temp = temp->next; */
-        /* } */
-        /* while (temp->next != (struct word*) 0); */
+        _Bool found = false;
+        while (1)
+        {
+            if (next_word == temp->str)
+            {
+                ++temp->rank;
+                found = true;
+                break;
+            }
+            if (temp->next != (struct word *) 0)
+                temp = temp->next;
+            else
+                break;
+        }
 
         /* if (!found) */
         /* { */
