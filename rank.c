@@ -150,14 +150,14 @@ int make_ranking(char * data)
         struct word *next;
     };
     char * next_word;
+    struct word *temp;
     /* int is_ranked(char * word); */
 
     struct word *list_head = (struct word *) 0;
 
     while (*data != '\0')
     {
-        struct word *temp = (struct word *)
-            calloc (1, sizeof(struct word));
+        temp = (struct word *) calloc (1, sizeof(struct word));
         if (temp == (struct word *) 0)
         {
             fprintf (stderr, "calloc: allocation failed\n");
@@ -184,43 +184,43 @@ int make_ranking(char * data)
                 break;
         }
 
-        /* if (!found) */
-        /* { */
-        /*     temp->next = (struct word *) */
-        /*         calloc (1, sizeof(struct word *)); */
-        /*     if (temp->next == (struct word *) 0) */
-        /*     { */
-        /*         fprintf (stderr, "calloc: allocation failed\n"); */
-        /*         exit(1); */
-        /*     } else { */
-        /*         temp = temp->next; */
-        /*         strcpy (temp->str, next_word); */
-        /*     } */
-        /* } */
-
-        DEBUG ("%s\n", list_head->str);
-
-        if (list_head->next == NULL)
-            DEBUG ("Null pointer\n");
-
-        /* Delete list rankeings */
-        while (list_head != (struct word *) 0)
+        if (!found)
         {
-            temp = list_head;
-            while (temp->next != (struct word *) 0)
-                temp = temp->next;
-            DEBUG ("Free a word\n");
-            free(list_head);
-            list_head = NULL;
-            if (list_head == NULL)
+            temp->next = (struct word *)
+                calloc (1, sizeof(struct word *));
+            if (temp->next == (struct word *) 0)
             {
-                DEBUG ("Null head\n");
-                break;
+                fprintf (stderr, "calloc: allocation failed\n");
+                exit(1);
+            } else {
+                temp = temp->next;
+                strcpy (temp->str, next_word);
             }
         }
 
+        // Debug statements
+        DEBUG ("%s\n", list_head->str);
+        DEBUG ("%s\n", list_head->next->str);
+        if (list_head->next == NULL)
+            DEBUG ("Null pointer\n");
         break;
 
+    }
+
+    /* Delete list rankeings */
+    while (list_head != (struct word *) 0)
+    {
+        temp = list_head;
+        while (temp->next != (struct word *) 0)
+            temp = temp->next;
+        DEBUG ("Free a word\n");
+        free(list_head);
+        list_head = NULL;
+        if (list_head == NULL)
+        {
+            DEBUG ("Null head\n");
+            break;
+        }
     }
 
     return 0;
