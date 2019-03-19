@@ -172,7 +172,7 @@ int make_ranking(char * data)
         _Bool found = false;
         while (1)
         {
-            if (next_word == temp->str)
+            if (strcmp(next_word, temp->str) == 0)
             {
                 ++temp->rank;
                 found = true;
@@ -198,6 +198,7 @@ int make_ranking(char * data)
             }
         }
 
+        data += strlen(next_word) + 1;
         // Debug statements
         /* DEBUG ("%s\n", list_head->str); */
         /* DEBUG ("%s\n", list_head->next->str); */
@@ -208,11 +209,13 @@ int make_ranking(char * data)
 
     /* Print list rankings */
     temp = list_head;
+    printf ("\nRanking list:\n");
     while (temp != (struct word *) 0)
     {
         printf ("%s%5i\n", temp->str, temp->rank);
         temp = temp->next;
     }
+    printf ("\n");
 
     /* Delete list rankeings */
     while (list_head != (struct word *) 0)
