@@ -199,12 +199,19 @@ int make_ranking(char * data)
         }
 
         // Debug statements
-        DEBUG ("%s\n", list_head->str);
-        DEBUG ("%s\n", list_head->next->str);
-        if (list_head->next == NULL)
-            DEBUG ("Null pointer\n");
-        break;
+        /* DEBUG ("%s\n", list_head->str); */
+        /* DEBUG ("%s\n", list_head->next->str); */
+        /* if (list_head->next == NULL) */
+        /*     DEBUG ("Null pointer\n"); */
+        /* break; */
+    }
 
+    /* Print list rankings */
+    temp = list_head;
+    while (temp != (struct word *) 0)
+    {
+        printf ("%s%5i\n", temp->str, temp->rank);
+        temp = temp->next;
     }
 
     /* Delete list rankeings */
