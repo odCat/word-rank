@@ -164,6 +164,8 @@ int make_ranking(char * data)
             exit(1);
         }
 
+        DEBUG ("temp->rank = %i\n", temp->rank);
+
         next_word = get_next_word(data);
 
         if (list_head == (struct word *) 0)
@@ -172,12 +174,15 @@ int make_ranking(char * data)
             strcpy (list_head->str, next_word);
         }
 
+        DEBUG ("temp->rank = %i\n", temp->rank);
+
         // Check if the word is new
         _Bool found = false;
         while (1)
         {
             if (strcmp(next_word, temp->str) == 0)
             {
+                DEBUG ("temp->rank = %i\n", temp->rank);
                 ++temp->rank;
                 found = true;
                 break;
@@ -187,6 +192,8 @@ int make_ranking(char * data)
             else
                 break;
         }
+
+        DEBUG ("temp->rank = %i\n", temp->rank);
 
         if (!found)
         {
