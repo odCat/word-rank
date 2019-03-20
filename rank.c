@@ -163,10 +163,14 @@ int make_ranking(char * data)
             fprintf (stderr, "calloc: allocation failed\n");
             exit(1);
         }
-        if (list_head == (struct word *) 0)
-            list_head = temp;
-        
+
         next_word = get_next_word(data);
+
+        if (list_head == (struct word *) 0)
+        {
+            list_head = temp;
+            strcpy (list_head->str, next_word);
+        }
 
         // Check if the word is new
         _Bool found = false;
@@ -194,6 +198,7 @@ int make_ranking(char * data)
                 exit(1);
             } else {
                 temp = temp->next;
+                ++temp->rank;
                 strcpy (temp->str, next_word);
             }
         }
