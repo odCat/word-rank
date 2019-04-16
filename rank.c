@@ -29,7 +29,9 @@
 #endif
 
 // TODO: update this list
-#define NOT_PUNCTUATION(x) (ch != '.' && ch != ',' && ch != ':')
+#define NOT_PUNCTUATION(x) \
+        (ch != '.' && ch != ',' && ch != ':' && ch != ';' \
+         && ch != '?' && ch != '!' && ch != '(' && ch != ')')
 
 FILE * sample;
 bool eof_flag = false;
@@ -150,7 +152,7 @@ int make_ranking(char * data)
     {
         char            str[max_length];
         unsigned short  rank;
-        struct word *next;
+        struct word     *next;
     };
     char * next_word;
     struct word *temp;
@@ -171,13 +173,16 @@ int make_ranking(char * data)
 
         next_word = get_next_word(data);
 
+        // Initialize list if neccessary
         if (list_head == (struct word *) 0)
         {
             list_head = temp;
             strcpy (list_head->str, next_word);
+            DEBUG ("Head\nStr: %s\nRank: %i\n",
+                    list_head->str, list_head->rank);
         }
 
-        DEBUG ("temp->rank = %i\n", temp->rank);
+        /* DEBUG ("temp->rank = %i\n", temp->rank); */
 
         // Check if the word is new
         _Bool found = false;
@@ -185,7 +190,7 @@ int make_ranking(char * data)
         {
             if (strcmp(next_word, temp->str) == 0)
             {
-                DEBUG ("temp->rank = %i\n", temp->rank);
+                DEBUG ("%s = %s\n", next_word, temp->str);
                 ++temp->rank;
                 found = true;
                 break;
