@@ -28,6 +28,9 @@
 #   define DEBUG_DATA(arg)
 #endif
 
+// TODO: update this list
+#define NOT_PUNCTUATION(x) (ch != '.' && ch != ',' && ch != ':')
+
 FILE * sample;
 bool eof_flag = false;
 unsigned short int max_length = 0;
@@ -78,7 +81,7 @@ long int count_char(FILE *f)
     int  ch;
 
     while ((ch = getc(f)) != EOF)
-        if (ch != '.' && ch != ',' && ch != ':')
+        if (NOT_PUNCTUATION(ch))
             ++count;
 
     return count;
@@ -89,7 +92,7 @@ void read_file(FILE *f, char *data)
     int ch;
     
     while ((ch = getc(f)) != EOF)
-        if (ch != '.' && ch != ',' && ch != ':')
+        if (NOT_PUNCTUATION(ch))
             *data++ = ch;
 
     *data = '\0';
