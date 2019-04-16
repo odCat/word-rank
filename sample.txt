@@ -1,4 +1,6 @@
 casă masă carte
 casă
-parte
-pasă
+casă parte
+pasă parte
+
+televizor

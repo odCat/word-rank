@@ -162,20 +162,17 @@ int make_ranking(char * data)
 
     while (*data != '\0')
     {
-        temp = (struct word *) calloc (1, sizeof(struct word));
-        if (temp == (struct word *) 0)
-        {
-            fprintf (stderr, "calloc: allocation failed\n");
-            exit(1);
-        }
-
-        DEBUG ("temp->rank = %i\n", temp->rank);
-
         next_word = get_next_word(data);
 
         // Initialize list if neccessary
         if (list_head == (struct word *) 0)
         {
+            temp = (struct word *) calloc (1, sizeof(struct word));
+            if (temp == (struct word *) 0)
+            {
+                fprintf (stderr, "calloc: allocation failed\n");
+                exit(1);
+            }
             list_head = temp;
             strcpy (list_head->str, next_word);
             DEBUG ("Head\nStr: %s\nRank: %i\n",
@@ -186,6 +183,7 @@ int make_ranking(char * data)
 
         // Check if the word is new
         _Bool found = false;
+        temp = list_head;
         while (1)
         {
             if (strcmp(next_word, temp->str) == 0)
@@ -211,11 +209,10 @@ int make_ranking(char * data)
             {
                 fprintf (stderr, "calloc: allocation failed\n");
                 exit(1);
-            } else {
-                temp = temp->next;
-                ++temp->rank;
-                strcpy (temp->str, next_word);
             }
+            temp = temp->next;
+            ++temp->rank;
+            strcpy (temp->str, next_word);
         }
 
         data += strlen(next_word) + 1;
