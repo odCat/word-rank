@@ -89,13 +89,28 @@ long int count_char(FILE *f)
     return count;
 }
 
+/*
+ * read data from file jumping over empty lines
+ */
 void read_file(FILE *f, char *data)
 {
     int ch;
+    _Bool preceded_by_nl = false;
     
     while ((ch = getc(f)) != EOF)
+    {
         if (NOT_PUNCTUATION(ch))
+            if (ch == '\n')
+                if (preceded_by_nl)
+                {
+                    preceded_by_nl = true;
+                    continue;
+                } else {
+                    preceded_by_nl = true;}
+            else
+                preceded_by_nl = false;
             *data++ = ch;
+    }
 
     *data = '\0';
 }
