@@ -20,6 +20,8 @@
 #include <stdbool.h>
 #include <string.h>
 
+#define INPUT_FILE sample2.txt
+
 #ifdef DEBUG_ON
 #   define DEBUG(...) fprintf (stderr,  __VA_ARGS__)
 #   define DEBUG_DATA(arg) print_data(arg)
@@ -56,13 +58,13 @@ int main (int argc, char *argv[])
 
 void open_file()
 {
-    sample = fopen ("sample.txt", "r");
+    sample = fopen ("INPUT_FILE", "r");
 
     long c = count_char(sample);
     char data[c + 1];
 
     fclose (sample);
-    sample = fopen ("sample.txt", "r");
+    sample = fopen ("INPUT_FILE", "r");
 
     read_file(sample, data);
 
