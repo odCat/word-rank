@@ -94,6 +94,7 @@ long int count_char(FILE *f)
 
 /*
  * read data from file jumping over empty lines
+ *   and punctuation
  */
 void read_file(FILE *f, char *data)
 {
@@ -103,6 +104,7 @@ void read_file(FILE *f, char *data)
     while ((ch = getc(f)) != EOF)
     {
         if (NOT_PUNCTUATION(ch))
+        {
             if (ch == '\n')
                 if (preceded_by_nl)
                 {
@@ -113,6 +115,7 @@ void read_file(FILE *f, char *data)
             else
                 preceded_by_nl = false;
             *data++ = ch;
+        }
     }
 
     *data = '\0';
