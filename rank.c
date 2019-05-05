@@ -20,7 +20,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-#define INPUT_FILE sample2.txt
+#define INPUT_FILE "sample.txt"
 
 #ifdef DEBUG_ON
 #   define DEBUG(...) fprintf (stderr,  __VA_ARGS__)
@@ -31,7 +31,7 @@
 #endif
 
 // TODO: update this list
-#define NOT_PUNCTUATION(x) \
+#define NOT_PUNCTUATION(ch) \
         (ch != '.' && ch != ',' && ch != ':' && ch != ';' \
          && ch != '?' && ch != '!' && ch != '(' && ch != ')')
 
@@ -41,6 +41,7 @@ unsigned short int max_length = 0;
 
 
 /* prototypes */
+
 void open_file();
 long int count_char(FILE *);
 void read_file(FILE *, char *data);
@@ -58,13 +59,13 @@ int main (int argc, char *argv[])
 
 void open_file()
 {
-    sample = fopen ("INPUT_FILE", "r");
+    sample = fopen (INPUT_FILE, "r");
 
     long c = count_char(sample);
     char data[c + 1];
 
     fclose (sample);
-    sample = fopen ("INPUT_FILE", "r");
+    sample = fopen (INPUT_FILE, "r");
 
     read_file(sample, data);
 
