@@ -20,7 +20,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-#define INPUT_FILE "sample.txt"
+#define INPUT_FILE "sample2.txt"
 
 #ifdef DEBUG_ON
 #   define DEBUG(...) fprintf (stderr,  __VA_ARGS__)
@@ -31,6 +31,7 @@
 #endif
 
 // TODO: update this list
+//       find a way to deal with '-'
 #define NOT_PUNCTUATION(ch) \
         (ch != '.' && ch != ',' && ch != ':' && ch != ';' \
          && ch != '?' && ch != '!' && ch != '(' && ch != ')')
@@ -59,13 +60,21 @@ int main (int argc, char *argv[])
 
 void open_file()
 {
-    sample = fopen (INPUT_FILE, "r");
+    if ((sample = fopen (INPUT_FILE, "r")) == NULL)
+    {
+        printf ("Could not open file %s\n", INPUT_FILE);;
+        exit(1);
+    }
 
     long c = count_char(sample);
     char data[c + 1];
 
     fclose (sample);
-    sample = fopen (INPUT_FILE, "r");
+    if ((sample = fopen (INPUT_FILE, "r")) == NULL)
+    {
+        printf ("Could not open file %s\n", INPUT_FILE);;
+        exit(1);
+    }
 
     read_file(sample, data);
 
