@@ -20,7 +20,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-#define INPUT_FILE "sample2.txt"
+#define INPUT_FILE "sample.txt"
 
 #ifdef DEBUG_ON
 #   define DEBUG(...) fprintf (stderr,  __VA_ARGS__)
@@ -109,22 +109,52 @@ void read_file(FILE *f, char *data)
 {
     int ch;
     _Bool preceded_by_nl = false;
+    _Bool found_hyphen = false;
+    _Bool not_started = true;
     
     while ((ch = getc(f)) != EOF)
     {
         if (NOT_PUNCTUATION(ch))
         {
-            if (ch == '\n')
-                if (preceded_by_nl)
+            switch (ch)
+            {
+                case ' ':
+                    if (not_started)
+                        continue;
+                    if (found_hyphen)
+                        --data;
+                    if (*(data - 1) == ' ' || *(data - 1) == '\n')
+                        continue;
+                case '-':
+                    if (*(data - 1) == ' ')
+                        continue;
+                    found_hyphen = true;
+                    break;
+                case '\n':
+                    if (preceded_by_nl)
+                    {
+                        preceded_by_nl = true;
+                        continue;
+                    } else
+                        if (found_hyphen)
+                        {
+                            --data;
+                            found_hyphen = false;
+                            continue;
+                        }
+                        preceded_by_nl = true;
+                    break;
+                default:
                 {
-                    preceded_by_nl = true;
-                    continue;
-                } else {
-                    preceded_by_nl = true;}
-            else
-                preceded_by_nl = false;
+                    if (ch == ' ' && found_hyphen)
+                        --data;
+                    preceded_by_nl = false;
+                    found_hyphen = false;
+                }
+            }
+            not_started = false;
             *data++ = ch;
-        }
+        } 
     }
 
     *data = '\0';
