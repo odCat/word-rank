@@ -121,10 +121,10 @@ void read_file(FILE *f, char *data)
                 case ' ':
                     if (not_started)
                         continue;
-                    if (found_hyphen)
-                        --data;
                     if (*(data - 1) == ' ' || *(data - 1) == '\n')
                         continue;
+                    if (found_hyphen)
+                        --data;
                 case '-':
                     if (*(data - 1) == ' ')
                         continue;
