@@ -126,7 +126,7 @@ void read_file(FILE *f, char *data)
                     if (*(data - 1) == ' ' || *(data - 1) == '\n')
                         continue;
                     if (found_hyphen)
-                        --data;
+                        data -= 2;
                 case '-':
                     if (*(data - 1) == ' ')
                         continue;
