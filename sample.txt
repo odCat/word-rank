@@ -1,8 +1,8 @@
- casă, masă:  carte.
+ casă, masă:  “carte”.
 să-mi,
-- Linie de dialog
-casă
-casă parte
+- Linie de ‘dialog’
+casă - masă?
+casă parte!
 
 pasă -parte
 

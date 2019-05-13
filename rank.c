@@ -34,7 +34,9 @@
 //       find a way to deal with '-'
 #define NOT_PUNCTUATION(ch) \
         (ch != '.' && ch != ',' && ch != ':' && ch != ';' \
-         && ch != '?' && ch != '!' && ch != '(' && ch != ')')
+         && ch != '?' && ch != '!' && ch != '(' && ch != ')' \
+         && ch != '‘' && ch != '’' && ch != '“' && ch != '”' \
+         && ch != '\"' && ch != '\'')
 
 FILE * sample;
 bool eof_flag = false;
