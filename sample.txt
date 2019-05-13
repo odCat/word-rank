@@ -8,3 +8,5 @@ pasă -parte
 
 te-
 levizor
+"televizor"
+'și'
