@@ -31,12 +31,13 @@
 #endif
 
 // TODO: update this list
-//       find a way to deal with '-'
+//       Romanian quotes are not working...
 #define NOT_PUNCTUATION(ch) \
-        (ch != '.' && ch != ',' && ch != ':' && ch != ';' \
-         && ch != '?' && ch != '!' && ch != '(' && ch != ')' \
-         && ch != '‘' && ch != '’' && ch != '“' && ch != '”' \
-         && ch != '"' && ch != '\'')
+        (ch != '.' && ch != ',' && ch != ':' && ch != ';'    \
+         && ch != '?' && ch != '!' && ch != '(' && ch != ')' )
+/* \ */
+/*          && ch != '‘' && ch != '’' && ch != '“' && ch != '”' \ */
+/*          && ch != '"' && ch != '\'') */
 
 FILE * sample;
 bool eof_flag = false;
@@ -288,10 +289,10 @@ int make_ranking(char * data)
 
     /* Print list rankings */
     temp = list_head;
-    printf ("\nRanking list:\n");
+    printf ("\nRanking list:\n\n");
     while (temp != (struct word *) 0)
     {
-        printf ("%s%5i\n", temp->str, temp->rank);
+        printf ("%4i    %s\n", temp->rank, temp->str);
         temp = temp->next;
     }
     printf ("\n");
