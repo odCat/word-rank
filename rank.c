@@ -34,10 +34,8 @@
 //       Romanian quotes are not working...
 #define NOT_PUNCTUATION(ch) \
         (ch != '.' && ch != ',' && ch != ':' && ch != ';'    \
-         && ch != '?' && ch != '!' && ch != '(' && ch != ')' )
-/* \ */
-/*          && ch != '‘' && ch != '’' && ch != '“' && ch != '”' \ */
-/*          && ch != '"' && ch != '\'') */
+         && ch != '?' && ch != '!' && ch != '(' && ch != ')' \
+         && ch != '"' && ch != '\'')
 
 FILE * sample;
 bool eof_flag = false;
@@ -127,7 +125,10 @@ void read_file(FILE *f, char *data)
                     if (*(data - 1) == ' ' || *(data - 1) == '\n')
                         continue;
                     if (found_hyphen)
-                        data -= 2;
+                    {
+                        --data;
+                        continue;
+                    }
                 case '-':
                     if (*(data - 1) == ' ')
                         continue;
@@ -136,7 +137,6 @@ void read_file(FILE *f, char *data)
                 case '\n':
                     if (preceded_by_nl)
                     {
-                        preceded_by_nl = true;
                         continue;
                     } else
                         if (found_hyphen)
@@ -145,17 +145,16 @@ void read_file(FILE *f, char *data)
                             found_hyphen = false;
                             continue;
                         }
-                        preceded_by_nl = true;
+                    preceded_by_nl = true;
                     break;
                 default:
                 {
-                    if (ch == ' ' && found_hyphen)
-                        --data;
                     preceded_by_nl = false;
                     found_hyphen = false;
                 }
             }
-            not_started = false;
+            if (not_started)
+                not_started = false;
             *data++ = ch;
         } 
     }
