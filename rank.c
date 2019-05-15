@@ -147,6 +147,15 @@ void read_file(FILE *f, char *data)
                         }
                     preceded_by_nl = true;
                     break;
+                case 152:           // Left single quotation mark
+                case 153:           // Right single quotation mark
+                case 156:           // Left double quotation mark
+                case 157:           // Right double quotation mark
+                    if (*(data - 1 ) == -128 && *(data - 2) == -30)
+                    {
+                        data -= 2;
+                        continue;
+                    }
                 default:
                 {
                     preceded_by_nl = false;
